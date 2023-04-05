@@ -43,4 +43,9 @@ app.post('/pizzas', (request, response) => {
     pizzas.push(pizza)
 
     response.status(201).json(pizza)
+
+    const nameQuery = request.query.nameQuery
+
+    const pizzasFiltered = pizzas.filter( pizza => pizza.name.toLowerCase().includes(nameQuery.toLowerCase()))
+    response.json(pizzasFiltered)
 })
