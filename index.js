@@ -5,10 +5,6 @@ const app = express()
 
 app.use(express.json())
 
-app.listen(3333, () => {
-    console.log("Servidor no ar!");
-})
-
 let pizzas = []
 
 //listar todas as pizzas
@@ -43,9 +39,8 @@ app.post('/pizzas', (request, response) => {
     pizzas.push(pizza)
 
     response.status(201).json(pizza)
+})
 
-    const nameQuery = request.query.nameQuery
-
-    const pizzasFiltered = pizzas.filter( pizza => pizza.name.toLowerCase().includes(nameQuery.toLowerCase()))
-    response.json(pizzasFiltered)
+app.listen(3333, () => {
+    console.log("Servidor no ar!");
 })
