@@ -11,10 +11,17 @@ app.listen(3333, () => {
 
 let pizzas = []
 
+//listar todas as pizzas
 app.get('/pizzas', (request, response) => {
-    response.json(pizzas)
+
+    const nameQuery = request.query.name || ""
+
+    const pizzasFiltered = pizzas.filter( pizza => pizza.name.toLowerCase().includes(nameQuery.toLowerCase()))
+
+    response.json(pizzasFiltered)   
 })
 
+//cadastrar pizza
 app.post('/pizzas', (request, response) => {
     
     const { name, url, description, price, ingredients } = request.body
