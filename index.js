@@ -9,5 +9,9 @@ app.listen(3333, () => {
 let pizzas = []
 
 app.get('/pizzas', (request, response) => {
-    response.json(pizzas)
+
+    const nameQuery = request.query.nameQuery
+
+    const pizzasFiltered = pizzas.filter( pizza => pizza.name.toLowerCase().includes(nameQuery.toLowerCase()))
+    response.json(pizzasFiltered)
 })
