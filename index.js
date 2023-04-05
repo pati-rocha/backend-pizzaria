@@ -42,6 +42,12 @@ app.post('/pizzas', (request, response) => {
     response.status(201).json(pizza)
 })
 
+//listar todos os pedidos
+app.get('/solicitations', (request, response) => {
+   
+    response.json(solicitations)
+})
+
 //cadastrar pedido
 app.post('/solicitations', (request, response) => {
 
