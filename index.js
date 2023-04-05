@@ -6,6 +6,7 @@ const app = express()
 app.use(express.json())
 
 let pizzas = []
+let solicitations = []
 
 //listar todas as pizzas
 app.get('/pizzas', (request, response) => {
@@ -39,6 +40,35 @@ app.post('/pizzas', (request, response) => {
     pizzas.push(pizza)
 
     response.status(201).json(pizza)
+})
+
+//cadastrar pedido
+app.post('/solicitations', (request, response) => {
+
+    const {
+        name_client,
+        cpf_client,
+        contact_client,
+        address_client,
+        payment_method,
+        observations,
+        pizzas
+    } = request.body
+    
+    const solicitation = {
+        id: uuidv4(),
+        name_client,
+        cpf_client,
+        contact_client,
+        address_client,
+        payment_method,
+        observations,
+        pizzas,
+        order: "EM PRODUÇÃO"        
+    }
+    
+    solicitations.push(solicitation)
+    response.status(201).json(solicitation)
 })
 
 app.listen(3333, () => {
