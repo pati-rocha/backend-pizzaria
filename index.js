@@ -65,6 +65,19 @@ app.put('/pizzas/:id',(request, response) => {
     response.json(pizzas)
 })
 
+//atualizar preço da pizza
+app.patch('/pizzas/:id', (request, response) => {
+
+    const pizzaPrice = pizzas.find( pizza => pizza.id == request.params.id)
+    if(!pizzaPrice) {
+        return response.status(404).json({error: "Desculpe, não encontramos seu produto!"})
+    }
+    pizzaPrice.price = request.body.price
+
+    response.json(pizzaPrice)
+
+})
+
 
 //listar todos os pedidos
 app.get('/solicitations', (request, response) => {
@@ -82,8 +95,6 @@ app.get('/solicitations/:id', (request, response) => {
     }
     response.json(solicitation)
 })
-
-//
 
 //cadastrar pedido
 app.post('/solicitations', (request, response) => {
