@@ -42,6 +42,30 @@ app.post('/pizzas', (request, response) => {
     response.status(201).json(pizza)
 })
 
+//atualizar pizza
+app.put('/pizzas/:id',(request, response) => {
+
+    const pizza = pizzas.find( pizza => pizza.id == request.params.id)
+    if(!pizza) {
+        return response.status(404).json({error: "Desculpe, não encontramos seu produto! "})
+    }
+
+    const newPizzas = pizzas.map( pizza => {
+        if (pizza.id == request.params.id) {
+            pizza.name = request.body.name
+            pizza.url = request.body.url
+            pizza.description = request.body.description
+            pizza.price = request.body.price
+            pizza.ingredients = request.body.ingredients
+        }
+        return pizza        
+    })
+
+    pizzas = [... newPizzas]
+    response.json(pizzas)
+})
+
+
 //listar todos os pedidos
 app.get('/solicitations', (request, response) => {
    
@@ -99,14 +123,15 @@ app.patch('/solicitations/:id/active', (request, response) => {
     } 
     solicitation.order = "A CAMINHO"      
 
-   /* const solicitationOrder = solicitations.map(solicitation => {
+    //caso queira retornar todo o array de pedidos
+   /* const solicitationsOrder = solicitations.map(solicitation => {
         if (solicitation.id == request.params.id){
             solicitation.order = "A CAMINHO"
         }
         return solicitation
     })*/
-    //solicitations = [...solicitationOrder ]
-    
+    //solicitations = [... solicitationsOrder ]
+
     response.json(solicitation)   
 
 })
