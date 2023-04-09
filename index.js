@@ -83,7 +83,7 @@ app.delete('/pizzas/:id', (request, response) => {
    const pizzasFiltered = pizzas.filter( pizza => pizza.id != request.params.id)
 
    pizzas = [... pizzasFiltered]
-   
+
    response.json()
 })
 
@@ -162,6 +162,16 @@ app.patch('/solicitations/:id/active', (request, response) => {
 
     response.json(solicitation)   
 
+})
+
+//deletar pedido
+app.delete('/solicitations/:id', (request, response) => {
+
+    const solicitationsFiltered = solicitations.filter(solicitation => solicitation.id != request.params.id)
+    
+    solicitations = [... solicitationsFiltered]
+    
+    response.json(solicitations)
 })
 
 app.listen(3333, () => {
