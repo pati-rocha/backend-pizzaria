@@ -65,11 +65,32 @@ app.put('/pizzas/:id',(request, response) => {
     response.json(pizzas)
 })
 
+//atualizar preço da pizza
+app.patch('/pizzas/:id', (request, response) => {
 
-//listar todos os pedidos
+    const pizzaPrice = pizzas.find( pizza => pizza.id == request.params.id)
+    if(!pizzaPrice) {
+        return response.status(404).json({error: "Desculpe, não encontramos seu produto!"})
+    }
+    pizzaPrice.price = request.body.price
+
+    response.json(pizzaPrice)
+
+})
+
+//listar pedidos OBS:TRAB COM QUERY PARAMS DE FORMA OPCIONAL
 app.get('/solicitations', (request, response) => {
-   
-    response.json(solicitations)
+    //console.log(request.query)
+
+    const cpfQuery = request.query.cpf_client || ""
+    const contactQuery = request.query.contact_client || ""
+
+    const solicitationSearch = solicitations.filter( solicitation => 
+        solicitation.cpf_client.includes(cpfQuery)
+        &&
+        solicitation.contact_client.includes(contactQuery)
+    )
+        return response.json(solicitationSearch)     
 })
 
 //buscar um pedido
@@ -82,8 +103,6 @@ app.get('/solicitations/:id', (request, response) => {
     }
     response.json(solicitation)
 })
-
-//
 
 //cadastrar pedido
 app.post('/solicitations', (request, response) => {
