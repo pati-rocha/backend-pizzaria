@@ -75,7 +75,16 @@ app.patch('/pizzas/:id', (request, response) => {
     pizzaPrice.price = request.body.price
 
     response.json(pizzaPrice)
+})
 
+//deletar pizza
+app.delete('/pizzas/:id', (request, response) => {
+
+   const pizzasFiltered = pizzas.filter( pizza => pizza.id != request.params.id)
+
+   pizzas = [... pizzasFiltered]
+   
+   response.json()
 })
 
 //listar pedidos OBS:TRAB COM QUERY PARAMS DE FORMA OPCIONAL
