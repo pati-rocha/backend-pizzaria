@@ -96,16 +96,18 @@ app.patch('/solicitations/:id/active', (request, response) => {
     const solicitation = solicitations.find(solicitation => solicitation.id == request.params.id)
     if(!solicitation) {
         return response.status(404).json({error: "Desculpe, não encontramos seu pedido!"})
-    }
-    
-    const solicitationOrder = solicitations.map(solicitation => {
+    } 
+    solicitation.order = "A CAMINHO"      
+
+   /* const solicitationOrder = solicitations.map(solicitation => {
         if (solicitation.id == request.params.id){
             solicitation.order = "A CAMINHO"
         }
         return solicitation
-    })
+    })*/
     //solicitations = [...solicitationOrder ]
-    response.json(solicitationOrder)   
+    
+    response.json(solicitation)   
 
 })
 
