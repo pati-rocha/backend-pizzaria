@@ -78,11 +78,19 @@ app.patch('/pizzas/:id', (request, response) => {
 
 })
 
-
-//listar todos os pedidos
+//listar pedidos OBS:TRAB COM QUERY PARAMS DE FORMA OPCIONAL
 app.get('/solicitations', (request, response) => {
-   
-    response.json(solicitations)
+    //console.log(request.query)
+
+    const cpfQuery = request.query.cpf_client || ""
+    const contactQuery = request.query.contact_client || ""
+
+    const solicitationSearch = solicitations.filter( solicitation => 
+        solicitation.cpf_client.includes(cpfQuery)
+        &&
+        solicitation.contact_client.includes(contactQuery)
+    )
+        return response.json(solicitationSearch)     
 })
 
 //buscar um pedido
