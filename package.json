@@ -3,14 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "server": "npx nodemon index.js"
+    "server": "npx nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "node-cron": "^3.0.2",
+    "nodemailer": "^6.9.1",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
