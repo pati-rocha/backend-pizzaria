@@ -1,13 +1,15 @@
 import {v4 as uuidv4} from 'uuid'
 import fs from 'fs'
-import { getPizzasInFile } from '../utils/getPizzasInFile.js'
+import { Request, Response } from 'express'
+import { BodyParamsCreatePizza, Pizza, QueryParamsFindManyPizzas} from '../types/pizzas.types.js'
+import { readFileJson } from '../utils/readFileJson.js'
 
 //listar todas as pizzas
-export function findMany( req, res){
+export function findMany( req: Request< {}, {}, {}, QueryParamsFindManyPizzas>, res: Response){
 
     const nameQuery = req.query.name || ""
 
-    const pizzas = getPizzasInFile()
+    const pizzas: Pizza[] = readFileJson('src/database/pizzas.json')
 
     const pizzasFiltered = pizzas.filter( pizza => pizza.name.toLowerCase().includes(nameQuery.toLowerCase()))
 
@@ -15,11 +17,11 @@ export function findMany( req, res){
 }
 
 //cadastrar pizza
-export function create( req, res){
-      
+export function create( req: Request<{}, {}, BodyParamsCreatePizza>, res: Response){
+     
     const { name, url, description, price, ingredients } = req.body
 
-    const pizzas = getPizzasInFile()
+    const pizzas: Pizza[] = readFileJson('src/database/pizzas.json')
 
     const pizzaExist = pizzas.find( pizza => pizza.name == name)
 
@@ -42,9 +44,9 @@ export function create( req, res){
 }
 
 //atualizar pizza
-export function update( req, res) {
+export function update( req: Request, res: Response) {
 
-    const pizzas = getPizzasInFile()
+    const pizzas: Pizza[] = readFileJson('src/database/pizzas.json')
 
     const pizza = pizzas.find( pizza => pizza.id == req.params.id)
     if(!pizza) {
@@ -67,9 +69,9 @@ export function update( req, res) {
 }
 
 //atualizar preço da pizza
-export function updateOne( req, res) {
+export function updateOne( req: Request, res: Response) {
 
-    const pizzas = getPizzasInFile()
+    const pizzas: Pizza[] = readFileJson('src/database/pizzas.json')
 
     const pizzaPrice = pizzas.find( pizza => pizza.id == req.params.id)
     if(!pizzaPrice) {
@@ -83,9 +85,9 @@ export function updateOne( req, res) {
 }
 
 //deletar pizza
-export function destroy( req, res){
+export function destroy( req: Request, res: Response){
     
-   const pizzas = getPizzasInFile()
+   const pizzas: Pizza[] = readFileJson('src/database/pizzas.json')
    const pizzasFiltered = pizzas.filter( pizza => pizza.id != req.params.id)
 
    fs.writeFileSync('src/database/pizzas.json',JSON.stringify(pizzasFiltered))   
