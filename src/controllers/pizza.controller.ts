@@ -36,7 +36,7 @@ export function create( req: Request<{}, {}, BodyParamsCreatePizza>, res: Respon
         description,
         price,
         ingredients, 
-        order: "EM PRODUÇÃO"
+       
     }
     fs.writeFileSync('src/database/pizzas.json', JSON.stringify([...pizzas, pizza]))
 
