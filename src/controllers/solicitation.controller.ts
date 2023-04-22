@@ -1,11 +1,18 @@
+import { Request, Response } from 'express'
 import {v4 as uuidv4} from 'uuid'
 import fs from 'fs'
-import { getSolicitationsInFile } from '../utils/getSolicitationsInFile.js'
+import { readFileJson } from '../utils/readFileJson'
+import { 
+    BodyParamsCreateSolicitation, 
+    BodyUpdateSolicitation, 
+    QueryParamsFindManySolicitations, 
+    RouteParamsSolicitation, 
+    Solicitation} from '../types/solicitations.types'
 
 //listar pedidos OBS:TRAB COM QUERY PARAMS DE FORMA OPCIONAL
-export function findMany( req, res){
+export function findMany( req: Request< {}, {}, {}, QueryParamsFindManySolicitations>, res: Response){
 
-    const solicitations = getSolicitationsInFile()
+    const solicitations: Solicitation[] = readFileJson('src/database/solicitations.json')
 
     const cpfQuery = req.query.cpf_client || ""
     const contactQuery = req.query.contact_client || ""
@@ -19,9 +26,9 @@ export function findMany( req, res){
 }
 
 //buscar um pedido
-export function findOne( req, res) {
+export function findOne( req: Request<RouteParamsSolicitation>, res: Response) {
 
-    const solicitations = getSolicitationsInFile()
+    const solicitations: Solicitation[] = readFileJson('src/database/solicitations.json')
 
     const solicitation = solicitations.find( solicitation => solicitation.id == req.params.id)
 
@@ -33,7 +40,7 @@ export function findOne( req, res) {
 }
 
 //cadastrar pedido
-export function create( req, res){
+export function create( req: Request<{}, {}, BodyParamsCreateSolicitation>, res: Response){
     
     const {
         name_client,
@@ -56,7 +63,7 @@ export function create( req, res){
         pizzas,
         order: "EM PRODUÇÃO"   
     }
-    const solicitations = getSolicitationsInFile()
+    const solicitations: Solicitation[] = readFileJson('src/database/solicitations.json')
     
     fs.writeFileSync('src/database/solicitations.json', JSON.stringify([... solicitations, solicitation]))
 
@@ -64,9 +71,9 @@ export function create( req, res){
 }
 
 //atualizar status do pedido
-export function updateStatus( req, res) {
+export function updateStatus(  req: Request<RouteParamsSolicitation, {}, BodyUpdateSolicitation>, res: Response) {
 
-    const solicitations = getSolicitationsInFile()
+    const solicitations: Solicitation[] = readFileJson('src/database/solicitations.json')
 
     const solicitation = solicitations.find(solicitation => solicitation.id == req.params.id)
     if(!solicitation) {
@@ -89,9 +96,9 @@ export function updateStatus( req, res) {
 }
 
 //deletar pedido
-export function destroy( req, res){
+export function destroy(  req: Request, res: Response){
 
-    const solicitations = getSolicitationsInFile()
+    const solicitations: Solicitation[] = readFileJson('src/database/solicitations.json')
 
     const solicitationsFiltered = solicitations.filter(solicitation => solicitation.id != req.params.id)
     
