@@ -1,6 +1,6 @@
 
 import { Router } from "express"
-import { activeOne, create, destroy, findMany, findOne } from "../controllers/solicitation.controller.js"
+import { create, destroy, findMany, findOne, updateStatus } from "../controllers/solicitation.controller"
 
 export const solicitationsRoutes = Router()
 
@@ -13,7 +13,7 @@ solicitationsRoutes.get('/solicitations/:id', findOne)
 solicitationsRoutes.post('/solicitations', create)
 
 
-solicitationsRoutes.patch('/solicitations/:id/active', activeOne)
+solicitationsRoutes.patch('/solicitations/:id/status', updateStatus)
 
 
 solicitationsRoutes.delete('/solicitations/:id', destroy)
