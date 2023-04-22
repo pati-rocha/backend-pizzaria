@@ -3,9 +3,9 @@ import cors from "cors";
 import cron from "node-cron";
 import * as dontenv from 'dotenv'
 
-import { pizzasRoutes } from "./routes/pizzas.routes.js";
-import { solicitationsRoutes } from "./routes/solicitations.routes.js";
-import { sendEmailSolicitationsInProduction } from "./jobs/sendEmailSolicitationsInProduction.js";
+import { pizzasRoutes } from "./routes/pizzas.routes";
+import { solicitationsRoutes } from "./routes/solicitations.routes";
+import { sendEmailSolicitationsInProduction } from "./jobs/sendEmailSolicitationsInProduction";
 
 export const app = express();
 

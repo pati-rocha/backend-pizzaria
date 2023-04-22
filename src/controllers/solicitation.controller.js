@@ -64,7 +64,7 @@ export function create( req, res){
 }
 
 //atualizar status do pedido
-export function activeOne( req, res) {
+export function updateStatus( req, res) {
 
     const solicitations = getSolicitationsInFile()
 

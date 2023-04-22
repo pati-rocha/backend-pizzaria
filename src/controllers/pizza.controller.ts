@@ -1,8 +1,8 @@
 import {v4 as uuidv4} from 'uuid'
 import fs from 'fs'
 import { Request, Response } from 'express'
-import { BodyParamsCreatePizza, Pizza, QueryParamsFindManyPizzas} from '../types/pizzas.types.js'
-import { readFileJson } from '../utils/readFileJson.js'
+import { BodyParamsCreatePizza, Pizza, QueryParamsFindManyPizzas} from '../types/pizzas.types'
+import { readFileJson } from '../utils/readFileJson'
 
 //listar todas as pizzas
 export function findMany( req: Request< {}, {}, {}, QueryParamsFindManyPizzas>, res: Response){

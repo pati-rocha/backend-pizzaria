@@ -4,7 +4,7 @@ import {
     destroy, 
     findMany, 
     update, 
-    updateOne } from "../controllers/pizza.controller.js"
+    updateOne } from "../controllers/pizza.controller"
 
 export const pizzasRoutes = Router()
 
